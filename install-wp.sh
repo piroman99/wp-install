@@ -1,4 +1,5 @@
  #!/bin/bash
- yes |apt update
- yes |apt upgrade
- yes |apt install -y zram-config
+ yes |apt update #ну надо
+ yes |apt upgrade #очень надо
+ yes |apt install -y zram-config #Я художник, я так вижу
+ 
