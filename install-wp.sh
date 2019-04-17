@@ -1,5 +1,5 @@
  #!/bin/bash
- yes |apt update #ну надо
- yes |apt upgrade #очень надо
- yes |apt install -y zram-config #Я художник, я так вижу
- 
+apt update -y #ну надо
+apt upgrade -y #очень надо
+apt install -y zram-config #Я художник, я так вижу
+apt install -y tasksel # Потому что я ленивая #опа
