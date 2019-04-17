@@ -57,4 +57,4 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 curl -O http://fubar.ru/instal-wp.sh
 bash install-wp.sh
 
-Далее спрашиваем домен ( для SSL) настройку DNS, что еще? и сетупим.
+Далее спрашиваем домен ( для SSL), по умолчанию предлагаем имя сервера, настройку DNS, мыл админа wp, логин и пароль админа (может генерим) что еще? и сетупим.
