@@ -56,7 +56,7 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 плагин тюнинга
 
 
-Установка, подозрезваю, что то типа
+Установка, подозреваю, что то типа
 curl -O http://fubar.ru/instal-wp.sh
 bash install-wp.sh
 
