@@ -28,27 +28,28 @@ tasksel install lamp-server ?
 
 бинд? Или чем мы мх отправим на другую почту
 
-----
+
 2 этап
+---
 
 сам вордпрес
 https://www.internet-technologies.ru/articles/ustanavlivaem-wordpress-s-pomoschyu-komandnoy-stroki.html
 https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 
 Подозреваю wp-cli
-----
-3 этап
 
-плагин суперкеш 
+3 этап
+-----
+
+плагин суперкеш (supercache)
 Установка и активация прям из коробки из wp-cli
 Если не даст - другой плагин.
-----
+
 
 4 этап
+------
 плагин переноса из другого места. и бэкапа 
 плагин тюнинга
-
-
 
 
 Установка, подозрезваю, что то типа
