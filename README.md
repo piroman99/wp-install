@@ -32,6 +32,7 @@ tasksel install lamp-server ?
 бинд? Или чем мы мх отправим на другую почту
 
 SSL и леценкрипт в частности.
+https://invs.ru/support/chastie-voprosy/kak-podklyuchit-besplatnyy-ssl-sertifikat-let-s-encrypt-dlya-apache-na-servere-s-ubuntu-17-04/
 
 2 этап
 ---
