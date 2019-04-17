@@ -5,4 +5,5 @@ apt install -y zram-config #Я художник, я так вижу
 apt install -y tasksel # Потому что я ленивая #опа
 apt install -y lamp-server^ # Все упрощаем
 apt install -y nginx #Куда же без него
-
+rm -f install-wp.sh #Убираем следы нашего позора
+shutdown -r now #Семь бед - один ресет
