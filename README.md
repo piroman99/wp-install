@@ -33,6 +33,8 @@ tasksel install lamp-server ?
 
 SSL и леценкрипт в частности.
 https://invs.ru/support/chastie-voprosy/kak-podklyuchit-besplatnyy-ssl-sertifikat-let-s-encrypt-dlya-apache-na-servere-s-ubuntu-17-04/
+или https://www.webhive.ru/2018/05/17/acme-sh-great-certbot-alternative/
+Так или иначе, нужен живой DNS
 
 2 этап
 ---
