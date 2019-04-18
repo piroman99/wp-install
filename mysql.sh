@@ -6,12 +6,12 @@
 # -------------------------------------------------------------------------
  
 # basename, username, password - заменить на свои значения.
-DBNAME=basename
-DBUSER=username
-DBPASS=password
+DBNAME=wordpress
+DBUSER=wordpress
+DBPASS=$1
  
 # Переменная пароля root-пользователя mysql/mariadb, для входа в консоль.
-ROOTPASS=password
+ROOTPASS=
  
 # Переменная каталога в котором находятся базы данных - НЕ ИЗМЕНЯТЬ!!!
 DBDIR=/var/lib/mysql/
@@ -28,7 +28,7 @@ echo -e "\nБаза с таким именем уже есть. Выбери д�
 fi
  
 # Создание пользователя (раскомментировать если нужен новый пользователь).
-#mysql -u root -p"$ROOTPASS" -e "create user "$DBUSER"@'localhost' identified by '$DBPASS';"
+mysql -u root -p"$ROOTPASS" -e "create user "$DBUSER"@'localhost' identified by '$DBPASS';"
  
 # Создание базы данных и назначение привилегий пользователя.
 mysql -u root -p"$ROOTPASS" -e "create database "$DBNAME"; grant all on "$DBNAME".* to "$DBUSER"@'localhost'; flush privileges;"
