@@ -55,6 +55,7 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 ------
 плагин переноса из другого места. и бэкапа 
 плагин тюнинга
+( или инструкция - меню для wp-cli )
 
 
 Установка,
