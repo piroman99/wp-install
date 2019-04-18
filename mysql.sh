@@ -11,7 +11,7 @@ DBUSER=wordpress
 DBPASS=$1
  
 # Переменная пароля root-пользователя mysql/mariadb, для входа в консоль.
-ROOTPASS=
+ROOTPASS=""
  
 # Переменная каталога в котором находятся базы данных - НЕ ИЗМЕНЯТЬ!!!
 DBDIR=/var/lib/mysql/
