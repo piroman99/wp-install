@@ -28,6 +28,46 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
+#создаем бд
+# basename, username, password - заменить на свои значения.
+DBNAME=wordpress
+DBUSER=wordpress
+DBPASS=$wpmysqlpassword
+ 
+# Переменная пароля root-пользователя mysql/mariadb, для входа в консоль.
+ROOTPASS="fffuuuffffb" #от рута работает любой, а пустой не принимает
+ 
+# Переменная каталога в котором находятся базы данных - НЕ ИЗМЕНЯТЬ!!!
+DBDIR=/var/lib/mysql/
+ 
+# -----------------------------------
+# 1 - Создание базы данных для сайта.
+# -----------------------------------
+ 
+echo "Создаю базу данных…"
+ 
+if [ -e "$DBDIR"/"$DBNAME" ]; then
+echo -e "\nБаза с таким именем уже есть. Выбери другое имя для базы данных.
+Работа скрипта остановлена." && exit
+fi
+ 
+# Создание пользователя (раскомментировать если нужен новый пользователь).
+mysql -u root -p"$ROOTPASS" -e "create user "$DBUSER"@'localhost' identified by '$DBPASS';"
+ 
+# Создание базы данных и назначение привилегий пользователя.
+mysql -u root -p"$ROOTPASS" -e "create database "$DBNAME"; grant all on "$DBNAME".* to "$DBUSER"@'localhost'; flush privileges;"
+ 
+if [ "$?" != 0 ]; then
+echo -e "\nВо время создания базы возникла ошибка.
+Работа скрипта остановлена." && exit
+fi
+ 
+echo -e "\nБаза данных: "$DBNAME"
+Пользователь базы данных: "$DBUSER"
+Пароль пользователя: "$DBPASS" "
+
+#закончили создавать бд
+
 #cd /var/www/$domain/
 #Загружаем wordpress c заданной локалью
 #wp core download --locale=$locale --allow-root
