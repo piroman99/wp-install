@@ -5,6 +5,7 @@
  
  
 # и в Продакшен
+#Кстати, на новом сервере следующим строкам может помешать стартующий с системой unatendent updates
 apt update -y #ну надо
 apt upgrade -y #очень надо
 apt install -y zram-config #Я художник, я так вижу
@@ -46,5 +47,8 @@ sudo mv wp-cli.phar /usr/local/bin/wp
 #Закончили
 rm -f wphosters.cfg
 rm -f install-wp.sh #Убираем следы нашего позора
-#А вот тут надо предупредить о перезагрузке
+
+#Предупреждаем о перезагрузке и ребутим"
+echo "Pleae press any key to reebot now"
+read -n 1
 shutdown -r now #Семь бед - один ресет
