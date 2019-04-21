@@ -31,6 +31,7 @@ tasksel install lamp-server ?
 
 нгнигкс и посмотреть что бы воркерс было авто.
 
+файрвол ufw
 
 бинд? Или чем мы мх отправим на другую почту
 
@@ -54,6 +55,7 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 плагин суперкеш (supercache)
 Установка и активация прям из коробки из wp-cli
 Если не даст - другой плагин.
+Плагин Filemanager
 
 
 4 этап
@@ -61,6 +63,7 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 плагин переноса из другого места. и бэкапа 
 плагин тюнинга
 ( или инструкция - меню для wp-cli )
+Плагин
 
 
 Установка,
@@ -68,6 +71,8 @@ https://techlist.top/ustanovka-wordpress-odnoj-knopkoj/
 подозреваю что то типа
 curl -O http://fubar.ru/instal-wp.sh
 bash install-wp.sh
+
+Для хостеров делаем автоустановку через файлик wphosters.cfg и ключ -no_ask 
 
 Далее спрашиваем домен ( для SSL), по умолчанию предлагаем имя сервера, Локаль ( по ней определяем какую версию вп скачать) настройку DNS, мыл админа wp, логин и пароль админа (может генерим) что еще? и сетупим.
 
