@@ -46,4 +46,5 @@ sudo mv wp-cli.phar /usr/local/bin/wp
 #Закончили
 rm -f wphosters.cfg
 rm -f install-wp.sh #Убираем следы нашего позора
+#А вот тут надо предупредить о перезагрузке
 shutdown -r now #Семь бед - один ресет
