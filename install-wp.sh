@@ -2,7 +2,7 @@
 
 
  #А тут надо как то узнать домен, e-mail админа, и может быть пароль админа из файла или консоли прочитать.
- wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 10 | head -1)
+ wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 15 | head -1)
  echo $wpmysqlpassword
  read -n 1
  
