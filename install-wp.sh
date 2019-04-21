@@ -9,7 +9,12 @@ apt upgrade -y #очень надо
 apt install -y zram-config #Я художник, я так вижу
 apt install -y tasksel # Потому что я ленивая #опа
 apt install -y lamp-server^ # Все упрощаем
-apt install -y nginx #Куда же без него
+#mysql_secure_installation - я не знаю как автоматом без ввода root пароля
+#apt install -y nginx #Куда же без него - но связку еще надо настроить
+#вот тут настроили связки nginx-apache
+ufw allow ssh # http https  на самом деле нужно добавить несколько правил - но как. по одному что ли
+#ufw enable
+
 
 #Тут мы еще решим вопрос с DNS и SSL
 
