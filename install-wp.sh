@@ -2,9 +2,8 @@
 
 
  #А тут надо как то узнать домен, e-mail админа, и может быть пароль админа из файла или консоли прочитать.
- wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 15 | head -1)
- echo $wpmysqlpassword
- read -n 1
+ wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 15 | head -1) #это плохо, но сервер пустой
+ 
  
 # и в Продакшен
 #Кстати, на новом сервере следующим строкам может помешать стартующий с системой unatendent updates
@@ -29,12 +28,12 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
-#cd /var/www/domain/
+#cd /var/www/$domain/
 #Загружаем wordpress c заданной локалью
 #wp core download --locale=$locale --allow-root
 
 #Создаем конфиг wordpress
-#wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$password --dbhost=localhost --dbprefix=wp_ --allow-root
+#wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
 #wp core install --url="вашдомен.ru"  --title="My blog" --admin_user="admin" --admin_password="пароль_администратора" —admin_email="мойemail@email.ru" --allow-root
