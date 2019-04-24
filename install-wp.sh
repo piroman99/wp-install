@@ -68,11 +68,13 @@ echo -e "\nБаза данных: "$DBNAME"
 
 #закончили создавать бд
 
-#cd /var/www/$domain/
+find /var/www/html/ -delete #опусташаем папку
+cd /var/www/html/ #как все сделаем наверное будет /var/www/ $domain/
 #Загружаем wordpress c заданной локалью
-#wp core download --locale=$locale --allow-root
+wp core download --locale=ru_RU --allow-root --path=/var/www/html/ #wp core download --path=/var/www/html/ --locale=$locale --allow-root
 
 #Создаем конфиг wordpress
+#wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
