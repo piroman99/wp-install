@@ -74,7 +74,7 @@ cd /var/www/html/ #как все сделаем наверное будет /var
 wp core download --locale=ru_RU --allow-root --path=/var/www/html/ #wp core download --path=/var/www/html/ --locale=$locale --allow-root
 
 #Создаем конфиг wordpress
-#wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
+wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
