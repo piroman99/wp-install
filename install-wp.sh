@@ -4,6 +4,10 @@
  #А тут надо как то узнать домен, e-mail админа, и может быть пароль админа из файла или консоли прочитать.
  wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 15 | head -1) #это плохо, но сервер пустой
  
+ wpdomain=$1
+ wpadminmail=$2
+ wpadminpass=$3
+ 
  
 # и в Продакшен
 #Кстати, на новом сервере следующим строкам может помешать стартующий с системой unatendent updates
@@ -78,12 +82,12 @@ wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword -
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
-#wp core install --url="вашдомен.ru"  --title="My blog" --admin_user="admin" --admin_password="пароль_администратора" —admin_email="мойemail@email.ru" --allow-root
+wp core install --url=$wpdomain  --title="My blog" --admin_user="admin" --admin_password=$wpadminpass —admin_email=$wpadminmail --allow-root
 
 #Активируем supercache
-#wp plugin install wp-super-cache --allow-root
-#wp plugin activate wp-super-cache --allow-root
-#wp super-cache enable  --allow-root
+wp plugin install wp-super-cache --allow-root
+wp plugin activate wp-super-cache --allow-root
+wp super-cache enable  --allow-root
 
 
 
