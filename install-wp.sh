@@ -82,7 +82,7 @@ wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword -
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
-wp core install --url=$wpdomain  --title="My blog" --admin_user="admin" --admin_password=$wpadminpass —admin_email=$wpadminmail --allow-root
+wp core install --url=$wpdomain  --title="My blog" --admin_user="admin" --admin_password=$wpadminpass —admin_email=$wpadminmail --path=/var/www/html/ --allow-root
 
 #Активируем supercache
 wp plugin install wp-super-cache --allow-root
