@@ -4,13 +4,15 @@
  #А тут надо как то узнать домен, e-mail админа, и может быть пароль админа из файла или консоли прочитать.
  wpmysqlpassword=$(cat /dev/urandom | tr -d -c 'a-zA-Z0-9' | fold -w 15 | head -1) #это плохо, но сервер пустой
  
- wpdomain=$1
- wpadminmail=$2
- wpadminpass=$3
- 
+ wpdomain=$1 #Первый параметр домен
+ wpadminmail=$2 #второй мыл админа вп - и походу его надо в кавычки заключать
+ wpadminpass=$3 #пароль вордпрес - тут опять проблема с спецсимволами
+ wplocale=$4 #локаль wp  - ну допусти en_US или ru_RU
  
 # и в Продакшен
 #Кстати, на новом сервере следующим строкам может помешать стартующий с системой unatendent updates
+#так что тут должен быть какой то if, а то неудобно.
+
 apt update -y #ну надо
 apt upgrade -y #очень надо
 apt install -y zram-config #Я художник, я так вижу
@@ -22,8 +24,13 @@ apt install -y lamp-server^ # Все упрощаем
 #А тут подкрутили все под максимум производительности
 
 #Включаем файрвол
-ufw allow ssh # http https  на самом деле нужно добавить несколько правил - но как. по одному что ли
-#ufw enable
+ufw allow ssh
+ufw allow http
+ufw allow https 
+ufw allow smtp
+ufw allow dns
+#на самом деле нужно добавить несколько еще правил - но как. по одному что ли
+ufw enable
 
 #Тут мы еще решим вопрос с DNS и SSL
 
@@ -52,7 +59,9 @@ echo "Создаю базу данных…"
  
 if [ -e "$DBDIR"/"$DBNAME" ]; then
 echo -e "\nБаза с таким именем уже есть. Выбери другое имя для базы данных.
-Работа скрипта остановлена." && exit
+Работа скрипта остановлена." && exit #на самом деле тут в этом случае надо базу и юзера стереть
+#что то типа mysql mysql -u root -p"$ROOTPASS" -e "drop user "$DBUSER"@'localhost';
+# mysql -u root -p"$ROOTPASS" -e "drop database "$DBNAME";
 fi
  
 # Создание пользователя (раскомментировать если нужен новый пользователь).
@@ -75,19 +84,22 @@ echo -e "\nБаза данных: "$DBNAME"
 find /var/www/html/ -delete #опусташаем папку
 cd /var/www/html/ #как все сделаем наверное будет /var/www/ $domain/
 #Загружаем wordpress c заданной локалью
-wp core download --locale=ru_RU --allow-root --path=/var/www/html/ #wp core download --path=/var/www/html/ --locale=$locale --allow-root
+sudo -u www-data wp core download --locale=ru_RU --path=/var/www/html/ 
+#wp core download --path=/var/www/html/ --locale=$locale --allow-root
 
 #Создаем конфиг wordpress
-wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --path=/var/www/html/ --allow-root
+sudo -u www-data wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --path=/var/www/html/ 
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
-wp core install --url=$wpdomain  --title="blog" --admin_user="admin" --admin_password="$wpadminpass" —admin_email="$wpadminmail" --path=/var/www/html/ --allow-root
+sudo -u www-data wp core install --url=$wpdomain  --title='My blog' --admin_user='admin' --admin_password='$wpadminpass' —admin_email='$wpadminmail' --path=/var/www/html/ 
 
 #Активируем supercache
-wp plugin install wp-super-cache --allow-root
-wp plugin activate wp-super-cache --allow-root
-wp super-cache enable  --allow-root
+sudo -u www-data wp plugin install wp-super-cache 
+sudo -u www-data wp plugin activate wp-super-cache
+
+#После того как поймем, как ставить wp-cli wp-supercache plugin
+#wp super-cache enable  --allow-root
 
 
 
