@@ -8,6 +8,7 @@
  wpadminmail=$2 #второй мыл админа вп - и походу его надо в кавычки заключать
  wpadminpass=$3 #пароль вордпрес - тут опять проблема с спецсимволами
  wplocale=$4 #локаль wp  - ну допусти en_US или ru_RU
+ scriptpatch=$(pwd)#запомнинаем, где мы запустили скриптву
  
 # и в Продакшен
 #Кстати, на новом сервере следующим строкам может помешать стартующий с системой unatendent updates
@@ -27,10 +28,10 @@ apt install -y lamp-server^ # Все упрощаем
 ufw allow ssh
 ufw allow http
 ufw allow https 
-ufw allow smtp
+ufw allow 25
 ufw allow dns
 #на самом деле нужно добавить несколько еще правил - но как. по одному что ли
-ufw enable
+ufw enable -y
 
 #Тут мы еще решим вопрос с DNS и SSL
 
@@ -104,8 +105,8 @@ sudo -u www-data wp plugin activate wp-super-cache
 
 
 #Закончили
-rm -f wphosters.cfg
-rm -f install-wp.sh #Убираем следы нашего позора
+rm -f $scriptpatch/wphosters.cfg
+rm -f $scriptpatch/install-wp.sh #Убираем следы нашего позора
 
 #Предупреждаем о перезагрузке и ребутим"
 echo "Pleae press any key to reebot now"
