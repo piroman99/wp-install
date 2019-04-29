@@ -100,9 +100,10 @@ sudo -u www-data wp core install --url="$wpdomain" --title="My blog" --admin_use
 #Активируем supercache
 sudo -u www-data wp plugin install wp-super-cache 
 sudo -u www-data wp plugin activate wp-super-cache
-
-#После того как поймем, как ставить wp-cli wp-supercache plugin
-#wp super-cache enable  --allow-root
+sudo -u www-data HOME=/var/www/ wp package install wp-cli/wp-super-cache-cli
+sudo -u www-data HOME=/var/www/ wp rewrite structure '/%year%/%monthnum%/%postname%' #иначе не работает
+#Активируем supercache уже внутри supercache
+sudo -u www-data HOME=/var/www/ wp super-cache enable 
 
 
 
