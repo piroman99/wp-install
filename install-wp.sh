@@ -98,20 +98,22 @@ sudo -u www-data wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$
 sudo -u www-data wp core install --url="$wpdomain" --title="My blog" --admin_user="admin" --admin_password="$wpadminpass" --admin_email="$wpadminmail" --path="/var/www/html/" 
 
 #Активируем supercache
-sudo -u www-data wp plugin install wp-super-cache 
-sudo -u www-data wp plugin activate wp-super-cache
+sudo -u www-data HOME=/var/www/ wp plugin install wp-super-cache 
+sudo -u www-data HOME=/var/www/ wp plugin activate wp-super-cache
 sudo -u www-data HOME=/var/www/ wp package install wp-cli/wp-super-cache-cli
 sudo -u www-data HOME=/var/www/ wp rewrite structure '/%year%/%monthnum%/%postname%' #иначе не работает
 #Активируем supercache уже внутри supercache
 sudo -u www-data HOME=/var/www/ wp super-cache enable 
 
-
+#Ставим еще wp-mail-smtp
+sudo -u www-data HOME=/var/www/ wp plugin install wp-mail-smtp
+sudo -u www-data HOME=/var/www/ wp plugin activate wp-mail-smtp
 
 #Закончили
 rm -f $scriptdir/wphosters.cfg
 rm -f $scriptdir/install-wp.sh #Убираем следы нашего позора
 
 #Предупреждаем о перезагрузке и ребутим"
-echo "Pleae press any key to reebot now"
+echo "Please press any key to reebot now"
 read -n 1
 shutdown -r now #Семь бед - один ресет
