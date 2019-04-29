@@ -95,7 +95,7 @@ sudo -u www-data wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$
 #wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$wpmysqlpassword --dbhost=localhost --dbprefix=wp_ --allow-root
 
 #устанавливаем wordpress
-sudo -u www-data wp core install --url=$wpdomain --title="My blog" --admin_user="admin" --admin_password="$wpadminpass" --admin_email="$wpadminmail" --path=/var/www/html/ 
+sudo -u www-data wp core install --url="$wpdomain" --title="My blog" --admin_user="admin" --admin_password="$wpadminpass" --admin_email="$wpadminmail" --path="/var/www/html/" 
 
 #Активируем supercache
 sudo -u www-data wp plugin install wp-super-cache 
