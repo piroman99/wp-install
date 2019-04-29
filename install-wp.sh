@@ -81,7 +81,7 @@ echo -e "\nБаза данных: "$DBNAME"
 
 #закончили создавать бд
 
-find /var/www/html/ -delete #опусташаем папку
+rm -rf /var/www/html/**/* #опусташаем папку
 cd /var/www/html/ #как все сделаем наверное будет /var/www/ $domain/
 #Загружаем wordpress c заданной локалью
 sudo -u www-data wp core download --locale=ru_RU --path=/var/www/html/ 
