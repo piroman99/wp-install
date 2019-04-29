@@ -86,7 +86,7 @@ chown www-data /var/www/
 chown www-data /var/www/html/
 cd /var/www/html/ #как все сделаем наверное будет /var/www/ $domain/
 #Загружаем wordpress c заданной локалью
-sudo -u www-data HOME=/var/www env wp core download --locale=ru_RU --path=/var/www/html/ 
+sudo -u www-data HOME=/var/www env wp core download --locale=$wplocale --path=/var/www/html/ 
 #wp core download --path=/var/www/html/ --locale=$locale --allow-root
 rm -rf /var/www/.wp-cli/ #подчищаем за wp-cli
 
