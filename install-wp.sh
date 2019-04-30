@@ -18,6 +18,11 @@ apt upgrade -y #очень надо
 apt install -y zram-config #Я художник, я так вижу
 apt install -y tasksel # Потому что я ленивая #опа
 apt install -y lamp-server^ # Все упрощаем
+a2enmod rewrite # mod rewrite нужен для wordpress
+#здесь надо httpd.conf сделать allowoverdrive ALL
+systemctl restart apache2 # потому что просят
+
+
 #mysql_secure_installation - я не знаю как автоматом без ввода root пароля
 #apt install -y nginx #Куда же без него - но связку еще надо настроить
 #вот тут настроили связки nginx-apache
@@ -27,8 +32,8 @@ apt install -y lamp-server^ # Все упрощаем
 ufw allow ssh
 ufw allow http
 ufw allow https 
-ufw allow 25
-ufw allow dns
+#ufw allow 25
+#ufw allow dns
 #на самом деле нужно добавить несколько еще правил - но как. по одному что ли
 echo "y" | sudo ufw enable #грязный хак с ответом да.
 
@@ -97,13 +102,17 @@ sudo -u www-data wp core config --dbname=wordpress --dbuser=wordpress --dbpass=$
 #устанавливаем wordpress
 sudo -u www-data wp core install --url="$wpdomain" --title="My blog" --admin_user="admin" --admin_password="$wpadminpass" --admin_email="$wpadminmail" --path="/var/www/html/" 
 
-#Активируем supercache
-sudo -u www-data HOME=/var/www/ wp plugin install wp-super-cache 
-sudo -u www-data HOME=/var/www/ wp plugin activate wp-super-cache
-sudo -u www-data HOME=/var/www/ wp package install wp-cli/wp-super-cache-cli
-sudo -u www-data HOME=/var/www/ wp rewrite structure '/%year%/%monthnum%/%postname%' #иначе не работает
+#Активируем supercache -пока нет, не работатает толком wp-super-cache-cli
+#sudo -u www-data HOME=/var/www/ wp plugin install wp-super-cache 
+#sudo -u www-data HOME=/var/www/ wp plugin activate wp-super-cache
+#sudo -u www-data HOME=/var/www/ wp package install wp-cli/wp-super-cache-cli
+#sudo -u www-data HOME=/var/www/ wp rewrite structure '/%year%/%monthnum%/%postname%' #иначе не работает
 #Активируем supercache уже внутри supercache
-sudo -u www-data HOME=/var/www/ wp super-cache enable 
+#sudo -u www-data HOME=/var/www/ wp super-cache enable 
+
+#единственное, что заработало сразу это cache-enabler
+sudo -u www-data HOME=/var/www/ wp plugin install cache-enabler
+sudo -u www-data HOME=/var/www/ wp plugin activate cache-enabler
 
 #Ставим еще wp-mail-smtp
 sudo -u www-data HOME=/var/www/ wp plugin install wp-mail-smtp
