@@ -242,7 +242,11 @@ install_wordpress () {
     wp core config --dbname="${database_name}" --dbuser="${database_name}" --dbpass="${password_user_db}" --dbhost=localhost --dbprefix=wp_ --path="/var/www/${environment[domain]}" --allow-root
     wp core install --url="https://${environment[domain]}" --title=Blog-"${environment[domain]}" --admin_user="${admin_wp}" --admin_password="${environment[wp-password]}" --admin_email=webmaster@"${environment[domain]}" --allow-root --path="/var/www/${environment[domain]}"
     chown -R www-data:www-data /var/www/${environment[domain]}/
-
+    #my 5 cents
+    sudo -u www-data wp plugin install cache-enabler --path="/var/www/${environment[domain]}"
+    sudo -u www-data wp plugin activate cache-enabler --path="/var/www/${environment[domain]}"
+    sudo -u www-data wp rewrite structure '/%year%/%monthnum%/%postname%' --path="/var/www/${environment[domain]}"
+    #end my 5 cents
 }
 
 fix_mixed_content () {
