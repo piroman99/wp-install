@@ -42,7 +42,7 @@ main () {
     mysql_install
     create_databases
     install_wordpress
-    blocker_apache_outboard
+    #blocker_apache_outboard
     ufw_setting
     reload_services
     setting_ssl
@@ -241,12 +241,19 @@ install_wordpress () {
     wp core download --locale="${environment[locale]}" --allow-root --path="/var/www/${environment[domain]}"
     wp core config --dbname="${database_name}" --dbuser="${database_name}" --dbpass="${password_user_db}" --dbhost=localhost --dbprefix=wp_ --path="/var/www/${environment[domain]}" --allow-root
     wp core install --url="https://${environment[domain]}" --title=Blog-"${environment[domain]}" --admin_user="${admin_wp}" --admin_password="${environment[wp-password]}" --admin_email=webmaster@"${environment[domain]}" --allow-root --path="/var/www/${environment[domain]}"
-    chown -R www-data:www-data /var/www/${environment[domain]}/
+    
     #my 5 cents
-    sudo -u www-data wp plugin install cache-enabler --path="/var/www/${environment[domain]}"
-    sudo -u www-data wp plugin activate cache-enabler --path="/var/www/${environment[domain]}"
-    sudo -u www-data wp rewrite structure '/%year%/%monthnum%/%postname%' --path="/var/www/${environment[domain]}"
+    wp plugin install cache-enabler --allow-root --path="/var/www/${environment[domain]}"
+    wp plugin activate cache-enabler --allow-root --path="/var/www/${environment[domain]}"
+    wp rewrite structure '/%year%/%monthnum%/%postname%' --allow-root --path="/var/www/${environment[domain]}"
+    
+    wp plugin install woocommerce --allow-root --path="/var/www/${environment[domain]}"
+    wp plugin activate woocommerce --allow-root --path="/var/www/${environment[domain]}"
+    
     #end my 5 cents
+    
+    chown -R www-data:www-data /var/www/${environment[domain]}/
+
 }
 
 fix_mixed_content () {
