@@ -243,10 +243,19 @@ install_wordpress () {
     wp core install --url="https://${environment[domain]}" --title=Blog-"${environment[domain]}" --admin_user="${admin_wp}" --admin_password="${environment[wp-password]}" --admin_email=webmaster@"${environment[domain]}" --allow-root --path="/var/www/${environment[domain]}"
     
     #my 5 cents
+    
+    #dirty hack Allowoverdrive All in apache2.conf
+    wget -O replacing2.py https://raw.githubusercontent.com/piroman99/wp-install/master/replacing2.py   
+    python replacing2.py   
+    rm replacing2.py
+    #end dirty hack
+    
+    #plugins
     wp plugin install cache-enabler --allow-root --path="/var/www/${environment[domain]}"
     wp plugin activate cache-enabler --allow-root --path="/var/www/${environment[domain]}"
     wp rewrite structure '/%year%/%monthnum%/%postname%' --allow-root --path="/var/www/${environment[domain]}"
     
+    # woocomerce for the tests
     wp plugin install woocommerce --allow-root --path="/var/www/${environment[domain]}"
     wp plugin activate woocommerce --allow-root --path="/var/www/${environment[domain]}"
     
