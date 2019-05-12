@@ -246,8 +246,11 @@ install_wordpress () {
     
     #dirty hack Allowoverdrive All in apache2.conf
     wget -O replacing2.py https://raw.githubusercontent.com/piroman99/wp-install/master/replacing2.py   
-    python replacing2.py   
+    python3 replacing2.py
+    cp -f /etc/apache2/apache2.tmp /etc/apache2/apache2.conf
+    rm /etc/apache2/apache2.tmp
     rm replacing2.py
+    apachectl -k graceful
     #end dirty hack
     
     #plugins
