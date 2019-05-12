@@ -1,4 +1,4 @@
- with open("/etc/apache2/apache2.conf", 'r') as f1, open("/etc/apache2/apache2.tmp", 'w') as f2:
+ with open('/etc/apache2/apache2.conf', 'r') as f1, open('/etc/apache2/apache2.tmp', 'w') as f2:
     f=False
     for line in f1.readlines():
         if f:
