@@ -6,9 +6,11 @@ Simpe Wordpress install for fast working
 ----
 
 You need VPS with Ubuntu 18.04 
+
 Yoo need root acces to VPS
 
 wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_release.sh
+
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
 Please, do not use default password, change it
