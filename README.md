@@ -1,13 +1,21 @@
 # wp-install
 Simpe Wordpress install for fast working
 
+Futures
+--- 
+All in one to start Wordpress in the VPS or bare iron.  Zram + Wp caching + Let's Encrypt + PHP-FPM 7.2 + LAMP + Nginx
+
+Soon
+---
+Simple DNS for one domain, Outgoing Mail , fine tuning 
+
 
 #Install
 ----
 
-You need VPS with Ubuntu 18.04 
+You need VPS or bare iron with Ubuntu 18.04 
 
-Yoo need login as root  to this VPS
+Yoo need login as root to this VPS
 
 type:
 
@@ -15,12 +23,25 @@ wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_releas
 
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
-after install, please reboot and then open you domain. Now you can login to wordpress. 
+After install, please reboot and then open you domain. Now you can login to wordpress. 
 
 Use login admin and pass - youwpadminpass
 
 Please, do not use default password, change it
 ----
+
+
+Donate (only if you want)
+---
+paypal paypal.me/piroma
+yandex https://money.yandex.ru/to/4100187198150
+
+I am waiting for suggestion , issues and pull requests from you. 
+Also, you can always help me to correct this text.
+Thank you.
+
+
+
 
 Below is the text of the Russian technical specifications. Please do not try to understand it. Wait.
 
