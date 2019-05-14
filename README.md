@@ -2,6 +2,22 @@
 Simpe Wordpress install for fast working
 
 
+#Install
+----
+
+You need VPS with Ubuntu 18.04 
+Yoo need root acces to VPS
+
+wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_release.sh
+bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
+
+Please, do not use default password, change it
+----
+
+Below is the text of the Russian technical specifications. Please do not try to understand it. Wait.
+----
+
+
 Как бы ТЗ
 ---
 
