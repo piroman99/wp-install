@@ -33,7 +33,8 @@ Please, do not use default password, change it
 
 Donate (only if you want)
 ---
-paypal paypal.me/piroma
+paypal https://paypal.me/piroma
+
 yandex https://money.yandex.ru/to/4100187198150
 
 I am waiting for suggestion , issues and pull requests from you. 
