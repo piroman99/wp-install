@@ -15,7 +15,9 @@ wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_releas
 
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
-after install, please reboot and then open you domain. Now you can login to wordpress with login admin and pass - youwpadminpass
+after install, please reboot and then open you domain. Now you can login to wordpress. 
+
+Use login admin and pass - youwpadminpass
 
 Please, do not use default password, change it
 ----
