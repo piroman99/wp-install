@@ -17,7 +17,6 @@ Please, do not use default password, change it
 ----
 
 Below is the text of the Russian technical specifications. Please do not try to understand it. Wait.
-----
 
 
 Как бы ТЗ
