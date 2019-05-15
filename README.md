@@ -15,7 +15,7 @@ Simple DNS for one domain, Outgoing Mail , fine tuning
 
 You need VPS or bare iron with Ubuntu 18.04 
 
-Yoo need login as root to this VPS
+You need login as root to this VPS
 
 type:
 
@@ -23,7 +23,7 @@ wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_releas
 
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
-After install, please reboot and then open you domain. Now you can login to wordpress. 
+After install, please reboot and then open your domain in browser. Now you can login to wordpress. 
 
 Use login admin and pass - youwpadminpass
 
@@ -40,8 +40,6 @@ yandex https://money.yandex.ru/to/4100187198150
 I am waiting for suggestion , issues and pull requests from you. 
 Also, you can always help me to correct this text.
 Thank you.
-
-
 
 
 Below is the text of the Russian technical specifications. Please do not try to understand it. Wait.
