@@ -388,6 +388,6 @@ database_name=$( echo "${environment[domain]}" | sed "s/\.//g" )
 admin_wp="admin"
 password_user_db=$( date +%s | sha256sum | base64 | head -c 32 ; echo )
 password_mysql=$( openssl rand -base64 16 )
-####################
+####################1
 
 main
