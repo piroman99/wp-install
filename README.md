@@ -19,7 +19,7 @@ You need login as root to this VPS
 
 type:
 
-wget -O https://raw.githubusercontent.com/piroman99/wp-install/master/app_release.sh
+wget https://raw.githubusercontent.com/piroman99/wp-install/master/app_release.sh
 
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
@@ -43,7 +43,7 @@ Thank you.
 
 
 Below is the text of the Russian technical specifications. Please do not try to understand it. Wait.
-
+---
 
 Как бы ТЗ
 ---
