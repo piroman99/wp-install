@@ -11,8 +11,8 @@ main () {
     gzip_nginx
     install_mod_rpaf
     app_install
-    setting_up_php
-#    setting_up_php_7_3
+#    setting_up_php
+    setting_up_php_7_3
     mysql_install
     create_databases
     postfix_install
@@ -29,6 +29,7 @@ info () {
 }
 
 write_secret_data () {
+    info "Writed secret data to file"
     secret_data="./secret_data.txt"
     echo "Mysql root password === $password_mysql
 Admin Wordpress User=${admin_wp} 
@@ -43,7 +44,7 @@ update_upgrade () {
 }
 
 ufw_setting () {
-    info "Block all ports except protocol ports: SSH, HTTP, HTTPS, FTP"
+    info "Block all ports except protocol ports: SSH, HTTP, HTTPS, FTP, SMTP"
     ports=( "ssh" "http" "https" "ftp" "postfix")
     for port in ${ports[@]}; do
         ufw allow $port
@@ -53,6 +54,7 @@ ufw_setting () {
 }
 
 postfix_install () {
+    info "Installed Postfix"
     echo "postfix postfix/mailname string custom.adminforum.online" | debconf-set-selections
     echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
     apt-get install -y postfix
@@ -76,10 +78,12 @@ certbot_get_certs () {
 }
 
 change_url () {
+    info "Update site URL"
     wp option update siteurl $url --allow-root --path=/var/www/"${environment[domain]}"/
 }
 
 setting_ssl () {
+    info "Chech domain and getting ssl certificates"
     a_record=$( dig ${environment[domain]} +short)
     echo "$a_record"
     if [ "$ip" == "$a_record" ] ; then
@@ -99,9 +103,12 @@ setting_ssl () {
 setting_conf_nginx () {
     sed -i 's/.*upload_max_filesize.*/upload_max_filesize = 32M/' "${path_php}"
     sed -i 's/.*upload_max_filesize.*/upload_max_filesize = 32M/' "${path_to_php_ini}"  
+    sed -i 's/.*realpath_cache_size.*/realpath_cache_size = 4096k/' "$path_php"
+    sed -i 's/.*max_input_vars.*/max_input_vars = 1000/' "$path_php"
 }
 
 gzip_nginx () {
+    info "Setting up GZIP"
     sed "/gzip on;/ a\\
 \tgzip_disable "msie6"; \n\
 \tgzip_vary on; \n\
@@ -112,6 +119,7 @@ gzip_nginx () {
 \tgzip_min_length 256; \n\
 \tgzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon; \ " /etc/nginx/nginx.conf > /tmp/nginx.conf
     cat /tmp/nginx.conf > /etc/nginx/nginx.conf
+    info "GZIP configured"
 }
 
 
@@ -150,13 +158,16 @@ server {
 }
 
 cron_certbot () {
+    info "Add cron for renew SSL certificate"
     crontab -l > wp-cron
     echo "00 1 * * * certbot renew --renew-hook 'systemctl reload nginx'" > wp-cron
     crontab wp-cron
+    info "Cron added"
 }
 
 
 setting_nginx () {
+    info "Setting up nginx without SSL"
     apt install -y nginx
     rm /etc/nginx/sites-enabled/default
 echo "server {
@@ -170,18 +181,23 @@ echo "server {
 }" > /etc/nginx/sites-available/"${environment[domain]}"
 
     ln -s /etc/nginx/sites-available/"${environment[domain]}" /etc/nginx/sites-enabled/"${environment[domain]}"
+    info "Nginx configured without SSL"
 }
 
 install_apache2 () {
+    info "Installing apache2"
     apt install -y apache2 && a2dissite 000-default
     echo 'Listen 8080' | tee /etc/apache2/ports.conf
     service apache2 start
+    info "Apache2 installed successful"
 }
 
 install_php_fpm () {
+    info "Installing php-fpm"
     apt install -y php-fpm
     wget https://mirrors.edge.kernel.org/ubuntu/pool/multiverse/liba/libapache-mod-fastcgi/libapache2-mod-fastcgi_2.4.7~0910052141-1.2_amd64.deb
     dpkg -i libapache2-mod-fastcgi_2.4.7~0910052141-1.2_amd64.deb
+    info "Php-fpm installed successful"
 }
 
 setting_apache_fpm () {
@@ -209,7 +225,7 @@ FastCgiIpcDir /var/lib/apache2/fastcgi
 AddType application/x-httpd-fastphp .php
 Action application/x-httpd-fastphp /php-fcgi
 Alias /php-fcgi /usr/lib/cgi-bin/php-fcgi
-FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi -socket /run/php/php7.2-fpm.sock -pass-header Authorization
+FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi -socket /run/php/php7.3-fpm.sock -pass-header Authorization
 <Directory /usr/lib/cgi-bin>
 Require all granted
 </Directory>
@@ -217,6 +233,7 @@ Require all granted
 }
 
 install_mod_rpaf () {
+    info "Installing and setting mod_rpaf (apache2)"
     apt install -y unzip build-essential apache2-dev
     cd /tmp/ && wget https://github.com/gnif/mod_rpaf/archive/stable.zip
     unzip stable.zip && cd mod_rpaf-stable/
@@ -231,27 +248,32 @@ RPAF_SetHostName        On
 RPAF_SetHTTPS           On
 RPAF_SetPort            On
 </IfModule>" > /etc/apache2/mods-available/rpaf.conf
+     info "Mod_rpaf configured"
 
 }
 
 reload_services () {
+    info "Restarting all services"
     a2ensite "${environment[domain]}"
     service apache2 restart
     service nginx restart
     service postfix restart
+    info "Services restarted"
 }
 
 install_wordpress () {
+    info "Install and setting up Wordpress"
     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar
     mv wp-cli.phar /usr/local/bin/wp
     wp core download --locale="${environment[locale]}" --allow-root --path="/var/www/${environment[domain]}"
     wp core config --dbname="${database_name}" --dbuser="${database_name}" --dbpass="${password_user_db}" --dbhost=localhost --dbprefix=wp_ --path="/var/www/${environment[domain]}" --allow-root
     wp core install --url="$url" --title=Blog-"${environment[domain]}" --admin_user="${admin_wp}" --admin_password="${environment[wp-password]}" --admin_email=webmaster@"${environment[domain]}" --allow-root --path="/var/www/${environment[domain]}"
     chown -R www-data:www-data /var/www/${environment[domain]}/
-
+    info "Installed Wordpress"
 }
 
 fix_mixed_content () {
+    info "Fix mixed content"
     sed "/WP_CACHE_KEY_SALT/ a\
 define('FORCE_SSL', true);\n\
 define('FORCE_SSL_ADMIN',true);\ " /var/www/"${environment[domain]}"/wp-config.php > /tmp/wp-config.tmp.php
@@ -259,6 +281,7 @@ define('FORCE_SSL_ADMIN',true);\ " /var/www/"${environment[domain]}"/wp-config.p
     sed "/table_prefix/ a\
 if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false)\n\
         \$_SERVER['HTTPS']='on';\ " /tmp/wp-config.tmp.php  > /var/www/"${environment[domain]}"/wp-config.php
+
 }
 
 setting_up_php () {
@@ -280,11 +303,23 @@ setting_up_php () {
 }
 
 setting_up_php_7_3 () {
+    info "Installing PHP 7.3 and other packages for php7.3"
     apt install -y \
         php7.3 \
 	php7.3-bcmath \
 	php7.3-imagick \
+        php7.3-cli \
+        php7.3-common \
+        php7.3-opcache \
+        php7.3-curl \
+        php7.3-mbstring \
+        php7.3-mysql \
+        php7.3-zip \
+        php7.3-xml \
+        php7.3-json
+    info "Installed PHP7.3 successful"
 }
+
 
 mysql_install () {
     info "Install mysql-server"
@@ -295,12 +330,13 @@ mysql_install () {
 }
 
 create_databases () {
+    info "Creating Database for Wordpress"
     mysql -uroot -p"${password_mysql}"<<MYSQL_SCRIPT
     CREATE DATABASE ${database_name} DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
     GRANT ALL ON ${database_name}.* TO '${database_name}'@'localhost' IDENTIFIED BY '${password_user_db}';
     FLUSH PRIVILEGES;
 MYSQL_SCRIPT
-    
+    info "Database created"    
 }
 
 app_install () {
@@ -345,8 +381,8 @@ if [ "$ip" == "$a_record" ] ; then
 fi
 
 ###System environment
-path_php="/etc/php/7.2/apache2/php.ini"
-path_to_php_ini="/etc/php/7.2/fpm/php.ini"
+path_php="/etc/php/7.3/apache2/php.ini"
+path_to_php_ini="/etc/php/7.3/fpm/php.ini"
 path_wp_config="/var/www/"${environment[domain]}"/wp-config.php"
 database_name=$( echo "${environment[domain]}" | sed "s/\.//g" )
 admin_wp="admin"
