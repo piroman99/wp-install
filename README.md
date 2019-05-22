@@ -1,9 +1,10 @@
 # wp-install
-Simpe Wordpress install for fast working
+Simpe Wordpress install for fast working. 
 
 Futures
 --- 
-All in one to start Wordpress in the VPS or bare iron.  Zram + Wp caching + Let's Encrypt + PHP-FPM 7.2 + LAMP + Nginx
+All in one to start Wordpress in the VPS or bare iron.  Zram + Wp caching + Let's Encrypt + PHP-FPM 7.2 + LAMP + Nginx <br>
+
 
 Soon
 ---
