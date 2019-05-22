@@ -9,7 +9,8 @@ Wordpress install based on wp-cli . Always latest Wordpress and plugin version a
 Soon
 ---
 Simple DNS for one domain, Outgoing Mail , fine tuning <br>
-test in https://github.com/piroman99/wp-install/tree/master/test
+test process in https://github.com/piroman99/wp-install/tree/master/test <br>
+We need your participation<br>
 
 #Install
 ----
