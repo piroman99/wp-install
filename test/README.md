@@ -11,9 +11,9 @@ Login as root to this VPS
 <br>
 type:
 <br>
-wget hhttps://raw.githubusercontent.com/piroman99/wp-install/master/test/ap-test.sh
+wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/ap-test.sh
 <br>
-bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
+bash app-test.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 <br>
 After install, please reboot and then open your domain in browser. Now you can login to wordpress.
 <br>
