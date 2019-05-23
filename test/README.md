@@ -15,7 +15,7 @@ wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/ap-test.
 <br>
 bash app-test.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 <br>
---
+-
 After install, please reboot and then open your domain in browser. Now you can login to wordpress.
 <br>
 Use login admin and pass - youwpadminpass
