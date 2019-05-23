@@ -268,6 +268,12 @@ install_wordpress () {
     wp core download --locale="${environment[locale]}" --allow-root --path="/var/www/${environment[domain]}"
     wp core config --dbname="${database_name}" --dbuser="${database_name}" --dbpass="${password_user_db}" --dbhost=localhost --dbprefix=wp_ --path="/var/www/${environment[domain]}" --allow-root
     wp core install --url="$url" --title=Blog-"${environment[domain]}" --admin_user="${admin_wp}" --admin_password="${environment[wp-password]}" --admin_email=webmaster@"${environment[domain]}" --allow-root --path="/var/www/${environment[domain]}"
+    #cache plugin install
+    wp plugin install cache-enabler --allow-root --path="/var/www/${environment[domain]}"
+    wp plugin activate cache-enabler --allow-root --path="/var/www/${environment[domain]}"
+    wp rewrite structure '/%year%/%monthnum%/%postname%' --allow-root --path="/var/www/${environment[domain]}"
+    # end install cache plugin
+    
     chown -R www-data:www-data /var/www/${environment[domain]}/
     info "Installed Wordpress"
 }
