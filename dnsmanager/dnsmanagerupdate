@@ -1,0 +1,115 @@
+#!/usr/bin/perl -w
+# (c) Sergey Redin, 2007
+# (c) Vladimir Galaichuk, 2014,2017
+# (c) Andrey Chesnakov ruweb.net 2016
+#
+# version 1.2
+#
+# 1) Define configuration in dnsmgrupdate.conf:
+# NAMEDPATH=/etc/namedb
+# MASTERIP=11.22.33.44
+# DNSMGRURL=https://dnsmgr1.server.net/manager/dnsmgr?out=text&authinfo=user:pass
+# DNSMGRURL=https://dnsmgr2.server.net/manager/dnsmgr?out=text&authinfo=user:pass
+# CHANGESONLY=yes
+# CHECKMASTER=yes
+#
+# 2) Add crontab entry:
+# * * * * * [ /etc/namedb -ot /tmp/dnsmgrupdate.stamp ] || (date; touch /tmp/dnsmgrupdate.stamp; /root/dnsmgr/dnsmgrupdate) >>/var/log/dnsmgrupdate
+#
+
+#use strict;
+my $DIR;
+my $MASTERIP;
+my @DNSMGRURLS;
+my $CHANGESONLY="no";
+my $CHECKMASTER="yes";
+my $INI = __FILE__ . ".conf";
+
+open FILE, "$INI" or die "Can't open $INI\n";
+foreach(<FILE>) {
+	chomp;
+	my ($key,$val) = split(/\s*=\s*/,$_,2) or next;
+	($key eq "NAMEDPATH") && ($DIR=$val) && next;
+	($key eq "MASTERIP") && ($MASTERIP=$val) && next;
+	($key eq "CHANGESONLY") && ($CHANGESONLY=$val) && next;
+	($key eq "CHECKMASTER") && ($CHECKMASTER=$val) && next;
+	($key eq "DNSMGRURL") && push(@DNSMGRURLS,$val);
+}
+close FILE;
+
+use File::Find;
+use LWP::Simple;
+my %localdoms = ();
+
+if (-d $DIR) {
+	find( sub { $localdoms{$1} = 1 if -f $_ && /^(.*)\.db$/; }, $DIR );
+} else {
+	open FILE, "$DIR" or die "Can't open $DIR\n";
+	foreach(<FILE>) {
+		$localdoms{$1} = 1 if /^\s*zone\s+"(\S+)"[^{]+{.*?type\s+master.*?file\s+"\S+\.db"/;
+	}
+}
+
+delete($localdoms{'localhost-forward'});
+delete($localdoms{'localhost-reverse'});
+delete($localdoms{'empty'});
+
+if ($CHANGESONLY ne "yes") {
+	printf "=== local:\n";
+	foreach my $domain (sort keys %localdoms) {
+		print "$domain\n";
+	}
+}
+
+my $ua = LWP::UserAgent->new(
+	ssl_opts => { 
+		verify_hostname => 0,
+		SSL_verify_mode => 0,
+	},
+);
+
+foreach my $dnsmgrurl (@DNSMGRURLS) {
+	$dnsmgrurl =~ s/^\s+|\s+$//g;
+	print "\n";
+	my $host = (split /\/+/,"$dnsmgrurl",3)[1];
+	my $response = $ua->get("$dnsmgrurl&func=domain&punycode=yes");
+	if (!$response->is_success) {
+		warn "=== $host:\n".$response->status_line."\n";
+		next;
+	}
+	my %remotedoms = ();
+	foreach my $line ( split /\n/, $response->decoded_content ) {
+		$remotedoms{$1} = 1 if ($line =~ /\bname=(\S+)\s+master=(\S+)\b/ and ($CHECKMASTER eq 'no' or $2 eq $MASTERIP));
+	}
+	if ($response->decoded_content ne "" and !%remotedoms) {
+		warn "=== $host:\n".$response->decoded_content."\n";
+		next;
+	}
+	if ($CHANGESONLY ne "yes") {
+		printf "=== $host:\n";
+		foreach my $domain (sort keys %remotedoms) {
+			print "$domain\n";
+		}
+	}
+	printf "=== $host changes:\n";
+	foreach my $domain (keys %localdoms) {
+		unless( exists $remotedoms{$domain} ) {
+			print "+$domain: ";
+			$response = $ua->get("$dnsmgrurl&func=domain.edit&name=$domain&master=$MASTERIP&sok=ok");
+			print ($response->is_success?$response->decoded_content:$response->status_line);
+			print "\n";
+		}
+	}
+	foreach my $domain (keys %remotedoms) {
+		unless( exists $localdoms{$domain} ) {
+			print "-$domain: ";
+			$response = $ua->get("$dnsmgrurl&func=domain.delete&elid=$domain");
+			print ($response->is_success?$response->decoded_content:$response->status_line);
+			print "\n";
+		}
+	}
+}
+
+printf "=== done\n";
+
+__END__
