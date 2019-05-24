@@ -10,7 +10,7 @@ Soon
 ---
 Simple DNS for one domain, Outgoing Mail , fine tuning <br>
 test process in https://github.com/piroman99/wp-install/tree/master/test <br>
-We need your participation<br>
+We need your help and participation<br>
 
 #Install
 ----
