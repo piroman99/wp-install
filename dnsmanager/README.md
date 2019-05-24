@@ -1,5 +1,5 @@
-SManager можно использовать скрипт dnsmgrupdate
-(В шаблонах с VestaCP он уже настроен, ничего делать не нужно)
+В DNSManager можно использовать скрипт dnsmgrupdate
+
 
 Качаем скрипт:
 curl -ku: https://:@svn.deserv.net/dnsmgrupdate/dnsmgrupdate
