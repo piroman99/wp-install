@@ -7,7 +7,7 @@ Install
 --
 You need VPS or bare iron with Ubuntu 18.04 <br>
 
-Login as root to this VPS
+Login as root
 <br>
 type:
 <br>
