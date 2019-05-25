@@ -1,7 +1,7 @@
 new version WP INSTALL
 ---
 Futures :PHP 7.3 , Postfix for outgoing mail, gzip on Nginx, imagick and bcmath in PHP <br>
-Fixed bugs: allowoverdrive enable in .httaccess without dirty hack, upload limit in PHP and NGINX increased to 32 megabytes <br>  
+Fixed bugs: allowoverdrive enable in .httaccess without dirty hack, upload limit in PHP and NGINX increased to 8 megabytes <br>  
 
 Install
 --
