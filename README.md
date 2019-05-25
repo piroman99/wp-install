@@ -17,7 +17,7 @@ We need your help and participation<br>
 
 You need VPS or bare iron with Ubuntu 18.04 
 
-You need login as root to this VPS
+login as root to this VPS
 
 type:
 
