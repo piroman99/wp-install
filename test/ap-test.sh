@@ -271,7 +271,7 @@ install_wordpress () {
     #cache plugin install
     wp plugin install cache-enabler --allow-root --path="/var/www/${environment[domain]}"
     wp plugin activate cache-enabler --allow-root --path="/var/www/${environment[domain]}"
-    wp rewrite structure '/%year%/%monthnum%/%postname%' --allow-root --path="/var/www/${environment[domain]}"
+    wp rewrite structure '/%year%/%monthnum%/%postname%/' --allow-root --path="/var/www/${environment[domain]}"
     # end install cache plugin
     
     chown -R www-data:www-data /var/www/${environment[domain]}/
