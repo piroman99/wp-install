@@ -271,7 +271,15 @@ install_wordpress () {
     #cache plugin install
     wp plugin install cache-enabler --allow-root --path="/var/www/${environment[domain]}"
     wp plugin activate cache-enabler --allow-root --path="/var/www/${environment[domain]}"
+    
+    #because https://github.com/wp-cli/wp-cli/issues/2184
+    {
+  	echo 'apache_modules:'
+  	echo '  - mod_rewrite'
+     } > "/var/www/${environment[domain]}/wp-cli.yml"
+    # enable permalink for cashing
     wp rewrite structure '/%year%/%monthnum%/%postname%/' --allow-root --path="/var/www/${environment[domain]}"
+   
     # end install cache plugin
     
     chown -R www-data:www-data /var/www/${environment[domain]}/
