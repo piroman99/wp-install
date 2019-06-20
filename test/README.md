@@ -13,7 +13,7 @@ type:
 <br>
 wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/app_test.sh
 <br>
-bash app-test.sh --domain=youdoman.com --wp-password=youwpadminpass --local=en_US --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr 
+bash app_test.sh --domain=youdoman.com --wp-password=youwpadminpass --local=en_US --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr 
 <br>
 
 After install, please reboot and then open your domain in browser. Now you can login to wordpress.
