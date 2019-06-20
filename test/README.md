@@ -1,6 +1,6 @@
 new version WP INSTALL
 ---
-Futures :PHP 7.3 , Postfix for outgoing mail, gzip on Nginx, imagick and bcmath in PHP . Support DNSmanager as Slave<br>
+Futures :PHP 7.3 , Postfix for outgoing mail, gzip on Nginx, imagick and bcmath in PHP. Support DNSmanager as Slave<br>
 Fixed bugs: allowoverdrive enable in .httaccess without dirty hack, upload limit in PHP and NGINX increased to 8 megabytes <br>  
 
 Install
