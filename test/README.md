@@ -11,7 +11,7 @@ Login as root
 <br>
 type:
 <br>
-wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/ap-test.sh
+wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/app_test.sh
 <br>
 bash app-test.sh --domain=youdoman.com --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr --wp-password=youwpadminpass --local=en_US
 <br>
