@@ -12,23 +12,24 @@ Login as root
 type:
 <br>
 wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/app_test.sh
-<br>
+
+After you can:
+
 #install Wordpress:
 
 bash app_test.sh --domain=youdoman.com --wp-password=youwpadminpass --local=en_US
 
-<br>
 #tune DNSmanager for Ruweb.net - hardcoded, not recommended for other hostings:
 
 bash app_test.sh --domain=youdoman.com  --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr 
 
-<br>
 
-#Add SSL f it was not previously installed:
+
+#Add SSL for this instalation if it was not previously installed:
 
  bash app_test.sh --domain=youdoman.com --ssl 
  
-<br>
+
 
 After install, please reboot and then open your domain in browser. Now you can login to wordpress.
 <br>
