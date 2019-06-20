@@ -14,15 +14,14 @@ type:
 wget https://raw.githubusercontent.com/piroman99/wp-install/master/test/app_test.sh
 <br>
 bash app_test.sh --domain=youdoman.com --wp-password=youwpadminpass --local=en_US
-
 #install Wordpress
+
 <br>
 bash app_test.sh --domain=youdoman.com  --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr 
-
 #tune DNSmanager for Ruweb.net - hardcoded, not recommended for other hostings
+
 <br>
  bash app_test.sh --domain=youdoman.com --ssl 
- 
  #Add SSL f it was not previously installed
 <br>
 
