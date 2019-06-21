@@ -53,12 +53,12 @@ paypal https://paypal.me/piroma
 
 yandex https://money.yandex.ru/to/4100187198150
 
+contacts. <br>
+mail: piroman99@yandex.ru<br> 
+tg chat https://t.me/wpins<br>
+Website - soon.
+
+
 I am waiting for suggestion , issues and pull requests from you. 
 Also, you can always help me to correct this text.
 Thank you.
-
-contacts.
-mail: piroman99@yandex.ru 
-tg chat https://t.me/wpins
-Site - soon.
-
