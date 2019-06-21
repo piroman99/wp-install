@@ -3,7 +3,7 @@ Simpe Wordpress install for fast working.
 
 Futures
 --- 
-All in one to start Wordpress in the VPS or bare iron.  Zram + Wp caching + Let's Encrypt + PHP-FPM 7.2 + LAMP + Nginx <br>
+All in one to start Wordpress in the VPS or bare iron.  Zram + Wp caching + Let's Encrypt + PHP-FPM 7.3 + LAMP + Nginx +PHP 7.3 , Postfix for outgoing mail, gzip on Nginx, imagick and bcmath in PHP. Support DNSmanager as Slave<br>
 Wordpress install based on wp-cli . Always latest Wordpress and plugin version after install
 
 Soon
