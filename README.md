@@ -57,4 +57,8 @@ I am waiting for suggestion , issues and pull requests from you.
 Also, you can always help me to correct this text.
 Thank you.
 
+contacts.
+mail: piroman99@yandex.ru 
+tg chat https://t.me/wpins
+Site - soon.
 
