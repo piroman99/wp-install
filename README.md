@@ -8,7 +8,7 @@ Wordpress install based on wp-cli . Always latest Wordpress and plugin version a
 
 Soon
 ---
-Simple DNS for one domain, Outgoing Mail , fine tuning <br>
+Simple DNS for one domain,  fine tuning <br>
 test process in https://github.com/piroman99/wp-install/tree/master/test <br>
 We need your help and participation<br>
 
@@ -23,9 +23,23 @@ type:
 
 wget https://raw.githubusercontent.com/piroman99/wp-install/master/app_release.sh
 
+After you can:
+
+#install Wordpress:
+
 bash app_release.sh --domain=youdomain.com --wp-password=youwpadminpass --local=en_US
 
-After install, please reboot and then open your domain in browser. Now you can login to wordpress. 
+
+#tune DNSmanager for Ruweb.net - hardcoded, not recommended for other hostings:
+
+bash app_release.sh --domain=youdoman.com --user_dnsmgr=user_dnsmanager --pass_dnsmgr=pass_dnsmanager --domain1_dnsmgr=dnsmgr1.deserv.net --domain2_dnsmgr=dnsmgr2.deserv.net --dnsmgr
+
+#Add SSL for this instalation if it was not previously installed:
+
+bash app_release.sh --domain=youdoman.com --ssl
+
+
+After install, please reboot server. Then open your domain in browser. Now you can login to wordpress. 
 
 Use login admin and pass - youwpadminpass
 
